@@ -25,6 +25,17 @@ CREATE TABLE painting (
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)    
 );
 
+DROP TABLE IF EXISTS other;
+CREATE TABLE other(
+    ID_no               INTEGER NOT NULL,
+    Otype               VARCHAR(30) NOT NULL,
+    Style               VARCHAR(30) NOT NULL
+    PRIMARY KEY (ID_no),
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+);
+
+
+
 DROP TABLE IF EXISTS artist;
 CREATE TABLE artist(
     Fname               VARCHAR(30) NOT NULL,
@@ -37,3 +48,5 @@ CREATE TABLE artist(
     Descrip             VARCHAR(255) NOT NULL
     CONSTRAINT PK_name PRIMARY KEY (Fname, Lname);
 );
+
+
