@@ -15,7 +15,7 @@ VALUES
 ('012', 'Jules Cesar', 'Statue of Julius Cesear', '1696', 'Early Modern Period', 'France', 'Coustou', 'Nicolas'),
 ('013', "Tete d'Homme Age", 'Painting of an Old Gentleman', '1737', 'Early Modern Period', 'France', 'UNKNOWN', 'UNKNOWN');
 
-INSERT INTO TABLE artist
+INSERT INTO artist
 VALUES 
 ('Bennedeto', 'da Rovezzano', '1474', '1552', 'Italy', 'Early Modern Period', 'Renaissance', 'Bennedeto was an Italian Architect and Sculptor who worked mainly in Florence.')
 ('Hans', 'Holbein', '1497', '1543', 'Germany', 'Early Modern Period', 'Northern Renaissance', 'Holbein was a German-Swiss artist who is known as being one fo the best portraitists of the 16th century.')
@@ -26,42 +26,42 @@ VALUES
 ('Louis', 'Barrias', '1841', '1905', 'France', 'Long Nineteenth Century', 'Romantic Realist', 'Barrias was a frech sculptor known for his romantic realist style and marble work.')
 ('Nicolas', 'Coustou', '1658', '1733', 'France', 'Early Modern Period', 'Baroque', 'Coustou was a French sculptor and academic who created many art pieces in the Baroque style.');
 
-INSERT INTO TABLE painting
+INSERT INTO painting
 VALUES
 ('003', 'Oil', 'Panel', 'Renaissance')
 ('007', 'Oil', 'Canvas', 'Post-Impressionist')
 ('006', 'Print', 'Transfer Lithograph', 'Post-Impressionist');
 
-INSERT INTO TABLE other
+INSERT INTO other
 VALUES
 ('002', 'Candelabrum', 'Rennaissance')
 ('004', 'Ewer', 'Rennaissance')
 ('005', 'Jug', 'Post-Modern');
 
-INSERT INTO TABLE statue
+INSERT INTO statue
 VALUES
 ('');
 
-INSERT INTO TABLE sculpture
+INSERT INTO sculpture
 VALUES
 ();
 
-INSERT INTO TABLE permanent_collection
+INSERT INTO permanent_collection
 VALUES
 ();
 
-INSERT INTO TABLE collections
+INSERT INTO collections
 VALUES
 ();
 
-INSERT INTO TABLE borrowed
+INSERT INTO borrowed
 VALUES
 ();
 
-INSERT INTO TABLE exhibition
+INSERT INTO exhibition
 VALUES
 ();
 
-INSERT INTO TABLE exhibit
+INSERT INTO exhibit
 VALUES 
 ();
