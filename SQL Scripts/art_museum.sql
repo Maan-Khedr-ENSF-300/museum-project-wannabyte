@@ -121,7 +121,7 @@ CREATE TABLE borrowed(
     ID_no               INTEGER NOT NULL,
     Borrowed_from       VARCHAR(30) NOT NULL,
     Date_borrowed       VARCHAR(30) NOT NULL,
-    Date_returned       VARCHAR(30) NOT NULL,
+    Date_returned       VARCHAR(30) DEFAULT NULL,
     
     PRIMARY KEY (ID_no, Borrowed_from),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no),
