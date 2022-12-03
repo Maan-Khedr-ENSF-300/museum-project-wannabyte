@@ -124,4 +124,4 @@ CREATE TABLE collections(
     Address_no          INTEGER NOT NULL
     Address_text        VARCHAR(30) NOT NULL
     PRIMARY KEY (AName)
-)
+);
