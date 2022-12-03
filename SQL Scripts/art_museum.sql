@@ -113,3 +113,15 @@ CREATE TABLE borrowed(
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
     FOREIGN KEY (Borrowed_from) REFERENCES collections(AName)
 );
+
+DROP TABLE IF EXISTS collections
+CREATE TABLE collections(
+    AName               VARCHAR(30) DEFAULT 'UNKNOWN'
+    CType               VARCHAR(30) DEFAULT 'UNKNOWN'
+    Descrip             VARCHAR(255) NOT NULL
+    Contact_person      VARCHAR(30) NOT NULL
+    Phone               INTEGER NOT NULL
+    Address_no          INTEGER NOT NULL
+    Address_text        VARCHAR(30) NOT NULL
+    PRIMARY KEY (AName)
+)
