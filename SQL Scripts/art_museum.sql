@@ -90,7 +90,14 @@ DROP TABLE IF EXISTS exhibit
 CREATE TABLE exhibit(
     ID_no               INTEGER NOT NULL,
     AName               VARCHAR(30) DEFAULT 'UNKNOWN'
-    PRIMARY KEY (ID_no, AName)
-    REFERENCES art_object(ID_no)
+    PRIMARY KEY (ID_no)
+    FOREIGN KEY (AName) REFERENCES art_object(ID_no)
 );
 
+DROP TABLE IF EXISTS exhibition
+CREATE TABLE exhibition(
+    AName               VARCHAR(30) DEFAULT 'UNKNOWN'
+    Start_date          VARCHAR(30) NOT NULL
+    End_date            VARCHAR(30) NOT NULL
+    PRIMARY KEY (AName)
+);
