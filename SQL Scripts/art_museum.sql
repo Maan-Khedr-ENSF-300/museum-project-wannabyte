@@ -90,8 +90,9 @@ DROP TABLE IF EXISTS exhibit
 CREATE TABLE exhibit(
     ID_no               INTEGER NOT NULL,
     AName               VARCHAR(30) DEFAULT 'UNKNOWN'
-    PRIMARY KEY (ID_no)
-    FOREIGN KEY (AName) REFERENCES art_object(ID_no)
+    PRIMARY KEY (ID_no, AName)
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+    FOREIGN KEY (AName) REFERENCES exhibition(AName)
 );
 
 DROP TABLE IF EXISTS exhibition
@@ -100,4 +101,15 @@ CREATE TABLE exhibition(
     Start_date          VARCHAR(30) NOT NULL
     End_date            VARCHAR(30) NOT NULL
     PRIMARY KEY (AName)
+);
+
+DROP TABLE IF EXISTS borrowed
+CREATE TABLE borrowed(
+    ID_no               INTEGER NOT NULL
+    Borrowed_from       VARCHAR(30) NOT NULL
+    Date_borrowed       VARCHAR(30) NOT NULL
+    Date_returned       VARCHAR(30) NOT NULL
+    PRIMARY KEY (ID_no, Borrowed_from)
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+    FOREIGN KEY (Borrowed_from) REFERENCES collections(AName)
 );
