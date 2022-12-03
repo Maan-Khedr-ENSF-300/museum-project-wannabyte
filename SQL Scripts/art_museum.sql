@@ -106,7 +106,7 @@ CREATE TABLE exhibit(
 
 DROP TABLE IF EXISTS collections;
 CREATE TABLE collections(
-<<<<<<< HEAD
+
     CName               VARCHAR(30) NOT NULL,
     CType               VARCHAR(30) DEFAULT 'UNKNOWN',
     Descrip             VARCHAR(255) NOT NULL,
@@ -131,6 +131,8 @@ CREATE TABLE borrowed(
 
 
 =======
+DROP TABLE IF EXISTS collections
+CREATE TABLE collections(
     AName               VARCHAR(30) DEFAULT 'UNKNOWN'
     CType               VARCHAR(30) DEFAULT 'UNKNOWN'
     Descrip             VARCHAR(255) NOT NULL
@@ -140,4 +142,4 @@ CREATE TABLE borrowed(
     Address_text        VARCHAR(30) NOT NULL
     PRIMARY KEY (AName)
 );
->>>>>>> main
+
