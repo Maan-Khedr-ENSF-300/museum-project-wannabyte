@@ -50,3 +50,41 @@ CREATE TABLE artist(
 );
 
 
+
+DROP TABLE IF EXISTS sculpture;
+CREATE TABLE sculpture(
+    ID_no               INTEGER NOT NULL,
+    Material            VARCHAR(30) NOT NULL,
+    Height              REAL NOT NULL,
+    "Weight"            REAL NOT NULL,
+    Style               VARCHAR(30) NOT NULL
+    PRIMARY KEY (ID_no),
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+);
+
+
+
+DROP TABLE IF EXISTS statue;
+CREATE TABLE statue(
+    ID_no               INTEGER NOT NULL,
+    Material            VARCHAR(30) NOT NULL,
+    Height              REAL NOT NULL,
+    Weight_in_kg        REAL NOT NULL,
+    Style               VARCHAR(30) NOT NULL
+    PRIMARY KEY (ID_no),
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+);
+
+
+
+DROP TABLE IF EXISTS permanent_collection
+CREATE TABLE permanent_collection(
+    ID_no               INTEGER NOT NULL,
+    Date_acquired       VARCHAR(30) NOT NULL,
+    Current_status      VARCHAR("zero" or "one") NOT NULL,
+    Cost                REAL NOT NULL
+    PRIMARY KEY (ID_no) REFERENCES art_object(ID_no)
+);
+
+
+
