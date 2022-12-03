@@ -25,9 +25,29 @@ VALUES
 
 INSERT INTO TABLE statue
 VALUES
-('')
+('');
 
-INSERT INTO sculpture
+INSERT INTO TABLE sculpture
 VALUES
+();
 
+INSERT INTO TABLE permanent_collection
+VALUES
+();
+
+INSERT INTO TABLE collections
+VALUES
+();
+
+INSERT INTO TABLE borrowed
+VALUES
+();
+
+INSERT INTO TABLE exhibition
+VALUES
+();
+
+INSERT INTO TABLE exhibit
+VALUES 
+();
 
