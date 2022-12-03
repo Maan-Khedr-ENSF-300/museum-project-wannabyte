@@ -13,4 +13,4 @@ VALUES      ('001', 'Angel Bearing Candlestick', 'Sculpture of an Angel bearing 
             ('010', 'Ours Debout', 'Sculpture of a Bronze Bear Standing', '1876', 'Long Nineteenth Century', 'France', 'Barye', 'Antoine'),
             ('011', 'Le Serment de Spartacus', 'Marble Statue of Spartacus', '1871', 'Long Nineteenth Century', 'France', 'Barrias', 'Louis'),
             ('012', 'Jules Cesar', 'Statue of Julius Cesear', '1696', 'Early Modern Period', 'France', 'Coustou', 'Nicolas'),
-            
+            ('013', "Tete d'Homme Age", 'Painting of an Old Gentleman', '1737', 'Early Modern Period', 'France', 'UNKNOWN', 'UNKNOWN')
