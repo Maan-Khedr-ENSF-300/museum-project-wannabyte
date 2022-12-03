@@ -7,12 +7,13 @@ CREATE TABLE art_object (
     ID_no               INTEGER NOT NULL,
     Title               VARCHAR(255) NOT NULL,
     Descrip             VARCHAR(255) NOT NULL,
-    year_created        VARCHAR(30) DEFAULT 'UNKNOWN',
+    year_created        DATE DEFAULT 'UNKNOWN',
     Epoch               VARCHAR(30) NOT NULL,
     Country_of_origin   VARCHAR(30) NOT NULL,
-    Artist              VARCHAR(30) DEFAULT 'UNKNOWN'
+    ALname              VARCHAR(30) DEFAULT 'UNKNOWN'
+    AFname              VARCHAR(30) DEFAULT 'UNKNOWN'
     PRIMARY KEY (ID_no),
-    FOREIGN KEY (Artist_first) REFERENCES ARTIST(PK_name)
+    FOREIGN KEY (ALname, AFname) REFERENCES ARTIST(Lname, Fname)
 );
 
 DROP TABLE IF EXISTS painting;
@@ -40,13 +41,13 @@ DROP TABLE IF EXISTS artist;
 CREATE TABLE artist(
     Fname               VARCHAR(30) NOT NULL,
     Lname               VARCHAR(30) NOT NULL,
-    Date_born           VARCHAR(30) DEFAULT 'UNKNOWN',
-    Date_died           VARCHAR(30) DEFAULT 'UNKNOWN',
+    Date_born           DATE DEFAULT 'UNKNOWN',
+    Date_died           DATE DEFAULT 'UNKNOWN',
     Country_of_origin   VARCHAR(30) NOT NULL,
     Epoch               VARCHAR(30) NOT NULL,
     Main_stlye          VARCHAR(30) NOT NULL,
     Descrip             VARCHAR(255) NOT NULL
-    CONSTRAINT PK_name PRIMARY KEY (Fname, Lname);
+    PRIMARY KEY (Fname, Lname);
 );
 
 
@@ -56,7 +57,7 @@ CREATE TABLE sculpture(
     ID_no               INTEGER NOT NULL,
     Material            VARCHAR(30) NOT NULL,
     Height              REAL NOT NULL,
-    "Weight"            REAL NOT NULL,
+    Weight_in_kg        REAL NOT NULL,
     Style               VARCHAR(30) NOT NULL
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
@@ -80,8 +81,8 @@ CREATE TABLE statue(
 DROP TABLE IF EXISTS permanent_collection
 CREATE TABLE permanent_collection(
     ID_no               INTEGER NOT NULL,
-    Date_acquired       VARCHAR(30) NOT NULL,
-    Current_status      VARCHAR("zero" or "one") NOT NULL,
+    Date_acquired       DATE NOT NULL,
+    Current_status      ENUM('Active', 'Inactive') NOT NULL,
     Cost                REAL NOT NULL
     PRIMARY KEY (ID_no) REFERENCES art_object(ID_no)
 );
@@ -89,18 +90,18 @@ CREATE TABLE permanent_collection(
 DROP TABLE IF EXISTS exhibit
 CREATE TABLE exhibit(
     ID_no               INTEGER NOT NULL,
-    AName               VARCHAR(30) DEFAULT 'UNKNOWN'
-    PRIMARY KEY (ID_no, AName)
+    EName               VARCHAR(30) NOT NULL
+    PRIMARY KEY (ID_no, EName)
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
-    FOREIGN KEY (AName) REFERENCES exhibition(AName)
+    FOREIGN KEY (EName) REFERENCES exhibition(EName)
 );
 
 DROP TABLE IF EXISTS exhibition
 CREATE TABLE exhibition(
-    AName               VARCHAR(30) DEFAULT 'UNKNOWN'
-    Start_date          VARCHAR(30) NOT NULL
-    End_date            VARCHAR(30) NOT NULL
-    PRIMARY KEY (AName)
+    EName               VARCHAR(30) NOT NULL
+    Startdate           DATE NOT NULL
+    Enddate             DATE NOT NULL
+    PRIMARY KEY (EName)
 );
 
 DROP TABLE IF EXISTS borrowed
@@ -111,17 +112,18 @@ CREATE TABLE borrowed(
     Date_returned       VARCHAR(30) NOT NULL
     PRIMARY KEY (ID_no, Borrowed_from)
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
-    FOREIGN KEY (Borrowed_from) REFERENCES collections(AName)
+    FOREIGN KEY (Borrowed_from) REFERENCES collections(CName)
 );
 
 DROP TABLE IF EXISTS collections
 CREATE TABLE collections(
-    AName               VARCHAR(30) DEFAULT 'UNKNOWN'
+    CName               VARCHAR(30) NOT NULL
     CType               VARCHAR(30) DEFAULT 'UNKNOWN'
     Descrip             VARCHAR(255) NOT NULL
     Contact_person      VARCHAR(30) NOT NULL
     Phone               INTEGER NOT NULL
     Address_no          INTEGER NOT NULL
     Address_text        VARCHAR(30) NOT NULL
-    PRIMARY KEY (AName)
-)
+    PRIMARY KEY (CName)
+);
+
