@@ -26,8 +26,7 @@ CREATE TABLE art_object (
     Country_of_origin   VARCHAR(30) NOT NULL,
     ALname              VARCHAR(30) NOT NULL DEFAULT 'UNKNOWN',
     AFname              VARCHAR(30) NOT NULL DEFAULT 'UNKNOWN',
-    PRIMARY KEY (ID_no),
-    FOREIGN KEY (AFname, ALname) REFERENCES artist(Fname, Lname)
+    PRIMARY KEY (ID_no)
 );
 
 DROP TABLE IF EXISTS painting;
@@ -130,7 +129,6 @@ CREATE TABLE borrowed(
 );
 
 
-=======
 DROP TABLE IF EXISTS collections
 CREATE TABLE collections(
     AName               VARCHAR(30) DEFAULT 'UNKNOWN'
