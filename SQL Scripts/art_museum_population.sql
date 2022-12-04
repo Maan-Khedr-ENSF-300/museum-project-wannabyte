@@ -17,75 +17,81 @@ VALUES
 
 INSERT INTO artist
 VALUES 
-('Bennedeto', 'da Rovezzano', '1474', '1552', 'Italy', 'Early Modern Period', 'Renaissance', 'Bennedeto was an Italian Architect and Sculptor who worked mainly in Florence.')
-('Hans', 'Holbein', '1497', '1543', 'Germany', 'Early Modern Period', 'Northern Renaissance', 'Holbein was a German-Swiss artist who is known as being one fo the best portraitists of the 16th century.')
-('Affabel', 'Partridge', 'UNKNOWN', 'UNKNOWN', 'Britain', 'Early Modern Period', 'Renaissance', 'Partridge was a goldsmith who worked in London, who is known for being tasked with improving old jewlery for Elizabeth I')
-('Earl', 'Robbins', '1922', '2010', 'United States', 'Postmodernity', 'Earthenware', 'Earl Robbins was a Native American artist from South Carolina.')
-('Vincent', 'van Gogh', '1853', '1890', 'Netherlands', 'Long Nineteenth Century', 'Post-Impressionist', 'Vincent Van Gogh was a Dutch painter who has become extremely well known in modern times, but did not receive much credit during his time.')
-('Louis', 'Richard', '1791', '1879', 'France', 'Long Nineteenth Century', 'Bronze Sculpting', 'Richard was a 19th century French scultor, known for creating realistic statues.')
-('Louis', 'Barrias', '1841', '1905', 'France', 'Long Nineteenth Century', 'Romantic Realist', 'Barrias was a frech sculptor known for his romantic realist style and marble work.')
+('Bennedeto', 'da Rovezzano', '1474', '1552', 'Italy', 'Early Modern Period', 'Renaissance', 'Bennedeto was an Italian Architect and Sculptor who worked mainly in Florence.'),
+('Hans', 'Holbein', '1497', '1543', 'Germany', 'Early Modern Period', 'Northern Renaissance', 'Holbein was a German-Swiss artist who is known as being one fo the best portraitists of the 16th century.'),
+('Affabel', 'Partridge', 'UNKNOWN', 'UNKNOWN', 'Britain', 'Early Modern Period', 'Renaissance', 'Partridge was a goldsmith who worked in London, who is known for being tasked with improving old jewlery for Elizabeth I'),
+('Earl', 'Robbins', '1922', '2010', 'United States', 'Postmodernity', 'Earthenware', 'Earl Robbins was a Native American artist from South Carolina.'),
+('Vincent', 'van Gogh', '1853', '1890', 'Netherlands', 'Long Nineteenth Century', 'Post-Impressionist', 'Vincent Van Gogh was a Dutch painter who has become extremely well known in modern times, but did not receive much credit during his time.'),
+('Louis', 'Richard', '1791', '1879', 'France', 'Long Nineteenth Century', 'Bronze Sculpting', 'Richard was a 19th century French scultor, known for creating realistic statues.'),
+('Louis', 'Barrias', '1841', '1905', 'France', 'Long Nineteenth Century', 'Romantic Realist', 'Barrias was a frech sculptor known for his romantic realist style and marble work.'),
 ('Nicolas', 'Coustou', '1658', '1733', 'France', 'Early Modern Period', 'Baroque', 'Coustou was a French sculptor and academic who created many art pieces in the Baroque style.');
 
 INSERT INTO painting
 VALUES
-('003', 'Oil', 'Panel', 'Renaissance')
-('007', 'Oil', 'Canvas', 'Post-Impressionist')
-('006', 'Print', 'Transfer Lithograph', 'Post-Impressionist')
+('003', 'Oil', 'Panel', 'Renaissance'),
+('007', 'Oil', 'Canvas', 'Post-Impressionist'),
+('006', 'Print', 'Transfer Lithograph', 'Post-Impressionist'),
 ('013', 'Oil', 'Canvas', 'Neoclassicism');
 
 INSERT INTO other
 VALUES
-('002', 'Candelabrum', 'Rennaissance')
-('004', 'Ewer', 'Rennaissance')
+('002', 'Candelabrum', 'Rennaissance'),
+('004', 'Ewer', 'Rennaissance'),
 ('005', 'Jug', 'Post-Modern');
 
 INSERT INTO statue
 VALUES
-('008', 'Bronze', '279', 'UNKOWN', 'Modern')
-('009'. 'Plaster', '72.5', 'UNKNOWN', 'Modern')
-('011', 'Marble', '210''UNKWOWN', 'Modern' )
+('008', 'Bronze', '279', 'UNKNOWN', 'Modern'),
+('009', 'Plaster', '72.5', 'UNKNOWN', 'Modern'),
+('011', 'Marble', '210', 'UNKNOWN', 'Modern' ),
 ('012', 'Marble', '2422', 'UNKNOWN', 'Modern');
 
 INSERT INTO sculpture
 VALUES
-('001', 'Bronze', '101', '141', 'Renaissance')
+('001', 'Bronze', '101', '141', 'Renaissance'),
 ('010', 'Bronze', '243', 'UNKNOWN', 'Modern');
 
 INSERT INTO permanent_collection
 VALUES
-('001', '2001-09-11', 'Active', '42000')
-('002', '2001-09-11', 'Active', '69000')
-('003', '2001-09-11', 'Active', '0')
-('004', '2001-09-11', 'Inactive', '1000000')
-('005', '2001-09-11', 'Inactive', '0')
+('001', '2001-09-11', 'Active', '42000'),
+('002', '2001-09-11', 'Active', '69000'),
+('003', '2001-09-11', 'Active', '0'),
+('004', '2001-09-11', 'Inactive', '1000000'),
+('005', '2001-09-11', 'Inactive', '0'),
 ('006', '2001-09-11', 'Active', '90000');
 
 INSERT INTO collections
 VALUES
-();
+('Louvre', 'Variety', 'The permanent collection of the Louvre containing a wide variety of art.', 'Jane Museum', '33140205317', 'Musée du Louvre, 75001 Paris, France');
 
 INSERT INTO borrowed
 VALUES
-('008', 'Louvre', 'June 16, 2018', NULL)
-('009', 'Louvre', 'March 12, 2012', 'May 16, 2015')
-('010', 'Louvre', 'January 23, 2014', NULL)
-('011', 'Louvre', 'August 18, 2013', 'September 20, 2016')
-('012', 'Louvre', 'July 12, 2011', NULL)
-('013', 'Louvre', 'May 8, 2003', 'May 8, 2005');
+('008', 'Louvre', '2018-05-16', NULL),
+('009', 'Louvre', '2012-03-12', '2015-05-16'),
+('010', 'Louvre', '2014-01-23', NULL),
+('011', 'Louvre', '2013-08-18', '2016-09-20'),
+('012', 'Louvre', '2011-07-12', NULL),
+('013', 'Louvre', '2003-05-08', '2005-05-08');
 
 INSERT INTO exhibition
 VALUES
-('Romanticism in Sculpture', '2014-01-23', 'Ongoing')
-('Fine Arts', '2012-03-12', '2015-05-16' )
-('Tuileries Gardens', '2013-08-18', '2016-09-20')
-('Cour Puget', '2011-10-12', 'Ongoing')
-('NOT EXPOSED', 'NULL', 'NULL');
+('The Tudors: Art and Majesty in Renaissance England', '2022-10-10', '2023-01-08'),
+('Van Gogh, Mondrian, and Munch: Selections from the Department of Drawings and Prints', '2022-07-07', '2022-10-11'),
+('Romanticism in Sculpture', '2014-01-23',  NULL),
+('Fine Arts', '2012-03-12', '2015-05-16' ),
+('Tuileries Gardens', '2013-08-18', '2016-09-20'),
+('Cour Puget', '2011-10-12', NULL);
 
 INSERT INTO exhibit
 VALUES 
-('008', 'Romanticism in Sculpture')
-('009', 'Fine Arts')
-('010', 'Romanticism in Sculpture')
-('011', 'Tuileries Gardens')
-('012', 'Cour Puget')
-('013', 'NOT EXPOSED');
+('001', 'The Tudors: Art and Majesty in Renaissance England'),
+('002', 'The Tudors: Art and Majesty in Renaissance England'),
+('003', 'The Tudors: Art and Majesty in Renaissance England'),
+('004', 'The Tudors: Art and Majesty in Renaissance England'),
+('006', 'Van Gogh, Mondrian, and Munch: Selections from the Department of Drawings and Prints'),
+('007', 'Van Gogh, Mondrian, and Munch: Selections from the Department of Drawings and Prints'),
+('008', 'Romanticism in Sculpture'),
+('009', 'Fine Arts'),
+('010', 'Romanticism in Sculpture'),
+('011', 'Tuileries Gardens'),
+('012', 'Cour Puget');
