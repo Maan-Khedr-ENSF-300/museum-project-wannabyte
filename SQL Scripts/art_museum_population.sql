@@ -62,7 +62,7 @@ VALUES
 
 INSERT INTO collections
 VALUES
-('008');
+();
 
 INSERT INTO borrowed
 VALUES
@@ -75,8 +75,17 @@ VALUES
 
 INSERT INTO exhibition
 VALUES
-();
+('Romanticism in Sculpture', '2014-01-23', 'Ongoing')
+('Fine Arts', '2012-03-12', '2015-05-16' )
+('Tuileries Gardens', '2013-08-18', '2016-09-20')
+('Cour Puget', '2011-10-12', 'Ongoing')
+('NOT EXPOSED', 'NULL', 'NULL');
 
 INSERT INTO exhibit
 VALUES 
-();
+('008', 'Romanticism in Sculpture')
+('009', 'Fine Arts')
+('010', 'Romanticism in Sculpture')
+('011', 'Tuileries Gardens')
+('012', 'Cour Puget')
+('013', 'NOT EXPOSED');
