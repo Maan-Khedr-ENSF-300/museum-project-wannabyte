@@ -37,7 +37,8 @@ CREATE TABLE painting (
     Drawn_on            VARCHAR(30),
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
-    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)    
+    CONSTRAINT FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)   
+    ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS other;
@@ -47,6 +48,7 @@ CREATE TABLE other(
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+    ON DELETE CASCADE
 );
 
 
@@ -59,6 +61,7 @@ CREATE TABLE sculpture(
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+    ON DELETE CASCADE
 );
 
 
@@ -71,6 +74,7 @@ CREATE TABLE statue(
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+    ON DELETE CASCADE
 );
 
 
@@ -82,6 +86,7 @@ CREATE TABLE permanent_collection(
     Cost                REAL,
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+    ON DELETE CASCADE
 );
 
 
@@ -99,8 +104,8 @@ CREATE TABLE exhibit(
     ID_no               INTEGER NOT NULL,
     EName               VARCHAR(100),
     PRIMARY KEY (ID_no, EName),
-    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no),
-    FOREIGN KEY (EName) REFERENCES exhibition(EName)
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no) ON DELETE CASCADE,
+    FOREIGN KEY (EName) REFERENCES exhibition(EName) ON DELETE CASCADE
 );
 
 
@@ -124,8 +129,10 @@ CREATE TABLE borrowed(
     Date_returned       DATE,
     
     PRIMARY KEY (ID_no, Borrowed_from),
-    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no),
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
+    ON DELETE CASCADE,
     FOREIGN KEY (Borrowed_from) REFERENCES collections(CName)
+    ON DELETE CASCADE
 );
 
 DROP TRIGGER IF EXISTS add_art;
@@ -138,3 +145,93 @@ IF ((NEW.ALname IS NOT NULL) AND (NEW.AFname IS NOT NULL) AND (NEW.ALname NOT IN
 THEN INSERT INTO artist(Fname, Lname) VALUES (NEW.AFname, NEW.ALname);
 END IF;
 END;//
+
+DROP TRIGGER IF EXISTS add_borrowed_from;
+DELIMITER //
+CREATE TRIGGER add_borrowed_from
+BEFORE INSERT ON borrowed
+FOR EACH ROW
+BEGIN
+IF ((NEW.Borrowed_from IS NOT NULL) AND (NEW.Borrowed_from NOT IN (SELECT Cname FROM collections)))
+THEN INSERT INTO collections(Cname) VALUES (NEW.Borrowed_from);
+END IF;
+END;//
+
+DROP TRIGGER IF EXISTS delete_artist;
+DELIMITER //
+CREATE TRIGGER delete_artist
+BEFORE DELETE ON artist
+FOR EACH ROW
+BEGIN
+IF (OLD.Lname IN (SELECT ALname FROM art_object))
+THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot delete artist with existing art objects';
+END IF;
+END;//
+
+DROP TRIGGER IF EXISTS delete_painting;
+DELIMITER //
+CREATE TRIGGER delete_painting
+AFTER DELETE ON painting
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no in (SELECT id_no FROM art_object))
+DELETE FROM art_object WHERE id_no = old.id_no;
+END IF;
+END;//
+
+DROP TRIGGER IF EXISTS delete_statue;
+DELIMITER //
+CREATE TRIGGER delete_statue
+AFTER DELETE ON statue
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no in (SELECT id_no FROM art_object))
+DELETE FROM art_object WHERE id_no = old.id_no;
+END IF;
+END;//
+
+DROP TRIGGER IF EXISTS delete_sculpture;
+DELIMITER //
+CREATE TRIGGER delete_sculpture
+AFTER DELETE ON sculpture
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no in (SELECT id_no FROM art_object))
+DELETE FROM art_object WHERE id_no = old.id_no;
+END IF;
+END;//
+
+DROP TRIGGER IF EXISTS delete_other;
+DELIMITER //
+CREATE TRIGGER delete_other
+AFTER DELETE ON other
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no in (SELECT id_no FROM art_object))
+DELETE FROM art_object WHERE id_no = old.id_no;
+END IF;
+END;//
+
+DROP TRIGGER IF EXISTS delete_perm;
+DELIMITER //
+CREATE TRIGGER delete_perm
+AFTER DELETE ON permanent_collection
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no in (SELECT id_no FROM art_object))
+DELETE FROM art_object WHERE id_no = old.id_no;
+END IF;
+END;//
+
+DROP TRIGGER IF EXISTS delete_borrowed;
+DELIMITER //
+CREATE TRIGGER delete_borrowed
+AFTER DELETE ON borrowed
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no in (SELECT id_no FROM art_object))
+DELETE FROM art_object WHERE id_no = old.id_no;
+END IF;
+END;//
+
+
