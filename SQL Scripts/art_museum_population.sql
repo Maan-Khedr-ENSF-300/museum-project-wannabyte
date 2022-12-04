@@ -8,7 +8,7 @@ VALUES
 ('005', 'Cupid Jug', 'Native American Jug', '2000', 'Postmodernity', 'USA', 'Robbins', 'Earl'),
 ('006', "At Eternity's Gate", 'Painting of Gentleman Weeping', '1882', 'Long Nineteenth Century', 'Netherlands', 'van Gogh', 'Vincent'),
 ('007', 'Shoes', 'Painting of Shoes of Red-Tile Floor', '1888', 'Long Nineteenth Century', 'Netherlands', 'van Gogh', 'Vincent'),
-('008', 'Beggerman', 'Bronze Statue of a Horse', '1841', 'Long Nineteenth Century', 'France', 'Richard', 'Louis'),
+('008', 'Beggarman', 'Bronze Statue of a Horse', '1841', 'Long Nineteenth Century', 'France', 'Richard', 'Louis'),
 ('009', 'Alexandre of Cyrene', 'Sculpture of Alexandre of Cyrene', '1914', 'Modern', 'Italy', 'UNKNOWN', 'UNKNOWN'),
 ('010', 'Ours Debout', 'Sculpture of a Bronze Bear Standing', '1876', 'Long Nineteenth Century', 'France', 'Barye', 'Antoine'),
 ('011', 'Le Serment de Spartacus', 'Marble Statue of Spartacus', '1871', 'Long Nineteenth Century', 'France', 'Barrias', 'Louis'),
@@ -30,7 +30,8 @@ INSERT INTO painting
 VALUES
 ('003', 'Oil', 'Panel', 'Renaissance')
 ('007', 'Oil', 'Canvas', 'Post-Impressionist')
-('006', 'Print', 'Transfer Lithograph', 'Post-Impressionist');
+('006', 'Print', 'Transfer Lithograph', 'Post-Impressionist')
+('013', 'Oil', 'Canvas', 'Neoclassicism');
 
 INSERT INTO other
 VALUES
@@ -40,15 +41,24 @@ VALUES
 
 INSERT INTO statue
 VALUES
-('');
+('008', 'Bronze', '279', 'UNKOWN', 'Modern')
+('009'. 'Plaster', '72.5', 'UNKNOWN', 'Modern')
+('011', 'Marble', '210''UNKWOWN', 'Modern' )
+('012', 'Marble', '2422', 'UNKNOWN', 'Modern');
 
 INSERT INTO sculpture
 VALUES
-();
+('001', 'Bronze', '101', '141', 'Renaissance')
+('010', 'Bronze', '243', 'UNKNOWN', 'Modern');
 
 INSERT INTO permanent_collection
 VALUES
-();
+('001', '2001-09-11', 'Active', '42000')
+('002', '2001-09-11', 'Active', '69000')
+('003', '2001-09-11', 'Active', '0')
+('004', '2001-09-11', 'Inactive', '1000000')
+('005', '2001-09-11', 'Inactive', '0')
+('006', '2001-09-11', 'Active', '90000');
 
 INSERT INTO collections
 VALUES
@@ -56,12 +66,26 @@ VALUES
 
 INSERT INTO borrowed
 VALUES
-();
+('008', 'Louvre', 'June 16, 2018', NULL)
+('009', 'Louvre', 'March 12, 2012', 'May 16, 2015')
+('010', 'Louvre', 'January 23, 2014', NULL)
+('011', 'Louvre', 'August 18, 2013', 'September 20, 2016')
+('012', 'Louvre', 'July 12, 2011', NULL)
+('013', 'Louvre', 'May 8, 2003', 'May 8, 2005');
 
 INSERT INTO exhibition
 VALUES
-();
+('Romanticism in Sculpture', '2014-01-23', 'Ongoing')
+('Fine Arts', '2012-03-12', '2015-05-16' )
+('Tuileries Gardens', '2013-08-18', '2016-09-20')
+('Cour Puget', '2011-10-12', 'Ongoing')
+('NOT EXPOSED', 'NULL', 'NULL');
 
 INSERT INTO exhibit
 VALUES 
-();
+('008', 'Romanticism in Sculpture')
+('009', 'Fine Arts')
+('010', 'Romanticism in Sculpture')
+('011', 'Tuileries Gardens')
+('012', 'Cour Puget')
+('013', 'NOT EXPOSED');
