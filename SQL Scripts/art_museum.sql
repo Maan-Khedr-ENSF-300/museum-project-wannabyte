@@ -145,6 +145,7 @@ IF ((NEW.ALname IS NOT NULL) AND (NEW.AFname IS NOT NULL) AND (NEW.ALname NOT IN
 THEN INSERT INTO artist(Fname, Lname) VALUES (NEW.AFname, NEW.ALname);
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS add_borrowed_from;
 DELIMITER //
@@ -156,6 +157,7 @@ IF ((NEW.Borrowed_from IS NOT NULL) AND (NEW.Borrowed_from NOT IN (SELECT Cname 
 THEN INSERT INTO collections(Cname) VALUES (NEW.Borrowed_from);
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS delete_artist;
 DELIMITER //
@@ -167,6 +169,7 @@ IF (OLD.Lname IN (SELECT ALname FROM art_object))
 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot delete artist with existing art objects';
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS delete_painting;
 DELIMITER //
@@ -178,6 +181,7 @@ IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS delete_statue;
 DELIMITER //
@@ -189,6 +193,7 @@ IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS delete_sculpture;
 DELIMITER //
@@ -200,6 +205,7 @@ IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS delete_other;
 DELIMITER //
@@ -211,6 +217,7 @@ IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS delete_perm;
 DELIMITER //
@@ -222,6 +229,7 @@ IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
+DELIMITER ;
 
 DROP TRIGGER IF EXISTS delete_borrowed;
 DELIMITER //
@@ -233,5 +241,6 @@ IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
+DELIMITER ;
 
 
