@@ -128,3 +128,13 @@ CREATE TABLE borrowed(
     FOREIGN KEY (Borrowed_from) REFERENCES collections(CName)
 );
 
+DROP TRIGGER IF EXISTS add_art;
+DELIMITER //
+CREATE TRIGGER add_art
+BEFORE INSERT ON art_object
+FOR EACH ROW
+BEGIN
+IF ((NEW.ALname IS NOT NULL) AND (NEW.AFname IS NOT NULL) AND (NEW.ALname NOT IN (SELECT Lname FROM artist)))
+THEN INSERT INTO artist(Fname, Lname) VALUES (NEW.AFname, NEW.ALname);
+END IF;
+END;//
