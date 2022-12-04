@@ -174,7 +174,7 @@ CREATE TRIGGER delete_painting
 AFTER DELETE ON painting
 FOR EACH ROW
 BEGIN
-IF (OLD.id_no in (SELECT id_no FROM art_object))
+IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
@@ -185,7 +185,7 @@ CREATE TRIGGER delete_statue
 AFTER DELETE ON statue
 FOR EACH ROW
 BEGIN
-IF (OLD.id_no in (SELECT id_no FROM art_object))
+IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
@@ -196,7 +196,7 @@ CREATE TRIGGER delete_sculpture
 AFTER DELETE ON sculpture
 FOR EACH ROW
 BEGIN
-IF (OLD.id_no in (SELECT id_no FROM art_object))
+IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
@@ -207,7 +207,7 @@ CREATE TRIGGER delete_other
 AFTER DELETE ON other
 FOR EACH ROW
 BEGIN
-IF (OLD.id_no in (SELECT id_no FROM art_object))
+IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
@@ -218,7 +218,7 @@ CREATE TRIGGER delete_perm
 AFTER DELETE ON permanent_collection
 FOR EACH ROW
 BEGIN
-IF (OLD.id_no in (SELECT id_no FROM art_object))
+IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
@@ -229,7 +229,7 @@ CREATE TRIGGER delete_borrowed
 AFTER DELETE ON borrowed
 FOR EACH ROW
 BEGIN
-IF (OLD.id_no in (SELECT id_no FROM art_object))
+IF (OLD.id_no in (SELECT id_no FROM art_object)) THEN
 DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
