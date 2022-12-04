@@ -10,7 +10,7 @@ CREATE TABLE artist(
     Date_died           DATE DEFAULT NULL,
     Country_of_origin   VARCHAR(30) NOT NULL,
     Epoch               VARCHAR(30) NOT NULL,
-    Main_stlye          VARCHAR(30) NOT NULL,
+    Main_style          VARCHAR(30) NOT NULL,
     Descrip             VARCHAR(255) NOT NULL,
     PRIMARY KEY (Fname, Lname)
 );
