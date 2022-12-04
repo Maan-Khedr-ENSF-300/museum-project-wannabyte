@@ -24,9 +24,10 @@ CREATE TABLE art_object (
     year_created        INTEGER DEFAULT NULL,
     Epoch               VARCHAR(30) NOT NULL,
     Country_of_origin   VARCHAR(30) NOT NULL,
-    ALname              VARCHAR(30) NOT NULL DEFAULT 'UNKNOWN',
-    AFname              VARCHAR(30) NOT NULL DEFAULT 'UNKNOWN',
-    PRIMARY KEY (ID_no)
+    ALname              VARCHAR(30),
+    AFname              VARCHAR(30),
+    PRIMARY KEY (ID_no),
+    FOREIGN KEY (AFname, ALname) REFERENCES artist(Fname, Lname)
 );
 
 DROP TABLE IF EXISTS painting;
