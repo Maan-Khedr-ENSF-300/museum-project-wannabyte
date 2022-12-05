@@ -10,3 +10,13 @@
 - sql scripts folder: contains all sql scripts required (database creation and initialization, sql script with query tasks in the handout, etc...)
 - database design folder: EERD and relational schema
 - optional data folder: has data files that you can sue to load data to your application if you use this optional implementation requirement
+
+## Notes on how to use program
+- Guest view will automatically login
+- Admin view will use username: 'adm' and password: 'password'
+- Data entry view will use username: 'data_entry' and password: 'password'
+- You must have the pip module tabulate installed
+
+## Additional Features/Bonus marks attempted
+- Added fully custom triggers for delete and updating tables
+- Added access control using SQL commands

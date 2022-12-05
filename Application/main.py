@@ -18,23 +18,32 @@ def guest_view(cur):
         elif selection == '1':
             choice = input('Would you like to see:\n1-Paintings\n2-Sculptures\n3-Statues\n4-Other')
             if choice == '1':
-                cur.execute('SELECT * FROM art_object AS A JOIN painting AS P ON A.ID_no = P.ID_no')
+                cur.execute('''SELECT A.title, A.descrip as Description, A.year_created, A.Epoch,
+                        A.Country_of_origin, A.AFname as Artist_first_name, A.ALname as Artist_last_name,
+                        P.Paint_type, P.Drawn_on, P.Style FROM art_object AS A JOIN painting AS P ON A.ID_no = P.ID_no''')
                 display_data(cur)
             elif choice == '2':
-                cur.execute('SELECT * FROM art_object AS A JOIN sculpture AS P ON A.ID_no = P.ID_no')
+                cur.execute('''SELECT A.title, A.descrip as Description, A.year_created, A.Epoch,
+                        A.Country_of_origin, A.AFname as Artist_first_name, A.ALname as Artist_last_name,
+                        P.Material, P.Height, P.weight_in_kg, P.style FROM art_object AS A JOIN sculpture AS P ON A.ID_no = P.ID_no''')
                 display_data(cur)
             elif choice == '3':
-                cur.execute('SELECT * FROM art_object AS A JOIN statue AS P ON A.ID_no = P.ID_no')
+                cur.execute('''SELECT A.title, A.descrip as Description, A.year_created, A.Epoch,
+                        A.Country_of_origin, A.AFname as Artist_first_name, A.ALname as Artist_last_name,
+                        P.Material, P.Height, P.weight_in_kg, P.Style FROM art_object AS A JOIN statue AS P ON A.ID_no = P.ID_no''')
                 display_data(cur)
             elif choice == '4':
-                cur.execute('SELECT  * FROM art_object AS A JOIN other AS P ON A.ID_no = P.ID_no')
+                cur.execute('''SELECT  A.title, A.descrip as Description, A.year_created, A.Epoch,
+                        A.Country_of_origin, A.AFname as Artist_first_name, A.Lname as Artist_las_name,
+                        P.Otype as Object_type, P.Style FROM art_object AS A JOIN other AS P ON A.ID_no = P.ID_no''')
                 display_data(cur)
             else:
                 print('invalid input')
                 continue
 
         elif selection == '2':
-            cur.execute('SELECT * FROM artist')
+            cur.execute('''SELECT Fname as First_name, Lname as Last_name, Year_born, Year_died
+            country_of_origin, Epoch, Main_style, Descrip as description FROM artist''')
             display_data(cur)
 
         elif selection == '3':

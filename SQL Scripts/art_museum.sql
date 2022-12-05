@@ -243,6 +243,18 @@ END IF;
 END;//
 DELIMITER ;
 
+DROP TRIGGER IF EXISTS update_painting;
+DELIMITER //
+CREATE TRIGGER update_painting
+BEFORE UPDATE ON painting
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no <> NEW.id_no)
+THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'To change ID_no of painting, make the change in the art_object table.';
+END IF;
+END;//
+DELIMITER ;
+
 INSERT INTO artist
 VALUES 
 ('Bennedeto', 'da Rovezzano', '1474', '1552', 'Italy', 'Early Modern Period', 'Renaissance', 'Bennedeto was an Italian Architect and Sculptor who worked mainly in Florence.'),
