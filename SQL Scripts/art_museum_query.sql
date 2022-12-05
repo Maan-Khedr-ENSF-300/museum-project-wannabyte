@@ -23,3 +23,10 @@ WHERE Fname IN (
         WHERE Paint_type = 'Oil'
 	)
 );
+
+-- Same as above but not nested and has column with oil
+SELECT a.Fname, a.Lname, p.Paint_type
+FROM artist AS a, painting AS p, art_object AS o
+WHERE a.Fname = o.AFname
+AND o.ID_no = p.ID_no
+AND p.Paint_type = 'Oil';
