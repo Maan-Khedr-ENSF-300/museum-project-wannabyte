@@ -3,8 +3,7 @@ from tabulate import tabulate
 
 def guest_view(cur):
     print('Welcome to the guest browser\nWhat would you like to view?')
-    cont = '1'
-    while(cont == '1'):
+    while(True):
         print('What would you like to view?')
         print('1-Art Pieces')
         print('2-Artists')
@@ -15,7 +14,7 @@ def guest_view(cur):
             selection = input('Invalid input.\nPlease enter a valid choice: ')
         if selection == '4':
             print('Thank you for using our database!')
-            cont = '0'
+            break
         elif selection == '1':
             choice = input('Would you like to see:\n1-Paintings\n2-Sculptures\n3-Statues\n4-Other')
             if choice == '1':
@@ -74,9 +73,46 @@ def display_data(cur):
 
 def data_entry():
     return
-def admin_view():
-    return
 
+def admin_view(cur):
+    while True:
+        print('Would you like to:\n1-Execute an SQL command\n2-Run an SQL script\n3-Quit')
+        choice = input('Please enter your selection: ')
+        while choice not in ['1','2','3']:
+            choice = input('Invalid input. Please enter a valid choice: ')
+        if choice == '1':
+            while True:
+                query = input('Please enter the SQL command that you want to execute: ')
+                try:
+                    cur.execute(f'{query}')
+                    display_data(cur)
+                except mysql.connector.Error as e:
+                    print(e)
+                cont = input('Would you like to execute another command?\nY for yes, anything else for no: ')
+                if cont not in ['Y', 'y']:
+                    break
+        elif choice == '2':
+            while True:
+                filepath = input('Please enter the directory and file name of the script you want to run:')    
+                fd = open(f'{filepath}', 'r')
+                sqlFile = fd.read()
+                fd.close()
+                sqlCommands = sqlFile.split(';')
+
+                for command in sqlCommands:
+                    try:
+                        if command.strip() != '':
+                            cur.execute(command)
+                    except mysql.connector.Error as msg:
+                        print("Command skipped: ", msg)
+                
+                cont = input('Would you like to execute another file? Y for yes, anything else for no: ')
+                if cont not in ['Y', 'y']:
+                    break
+        elif choice == '3':
+            print('Thank you for using our database!')
+            exit()
+    
 if __name__ == "__main__":
     
     print("Welcome to the Art Museum Database!")
@@ -106,6 +142,7 @@ if __name__ == "__main__":
         cnx = mysql.connector.connect(
         user = username,
         password = passcode,
+        autocommit = True
         )
         if (cnx.is_connected()):
             print("Connection Successful")
