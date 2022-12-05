@@ -127,6 +127,7 @@ if __name__ == "__main__":
         selection = input("Invalid input, please enter either 1, 2, 3, or 0: ")
     
     if selection == '0':
+        print('Thank you for using our database!')
         exit()
 
     if selection in ['1','2']:
