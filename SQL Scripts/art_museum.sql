@@ -38,7 +38,7 @@ CREATE TABLE painting (
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
     CONSTRAINT FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)   
-    ON DELETE CASCADE
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS other;
@@ -48,7 +48,7 @@ CREATE TABLE other(
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
-    ON DELETE CASCADE
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -61,7 +61,7 @@ CREATE TABLE sculpture(
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
-    ON DELETE CASCADE
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -74,7 +74,7 @@ CREATE TABLE statue(
     Style               VARCHAR(30),
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
-    ON DELETE CASCADE
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -86,7 +86,7 @@ CREATE TABLE permanent_collection(
     Cost                REAL,
     PRIMARY KEY (ID_no),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
-    ON DELETE CASCADE
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -104,8 +104,8 @@ CREATE TABLE exhibit(
     ID_no               INTEGER NOT NULL,
     EName               VARCHAR(100),
     PRIMARY KEY (ID_no, EName),
-    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no) ON DELETE CASCADE,
-    FOREIGN KEY (EName) REFERENCES exhibition(EName) ON DELETE CASCADE
+    FOREIGN KEY (ID_no) REFERENCES art_object(ID_no) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (EName) REFERENCES exhibition(EName) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -130,9 +130,9 @@ CREATE TABLE borrowed(
     
     PRIMARY KEY (ID_no, Borrowed_from),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
-    ON DELETE CASCADE,
+    ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Borrowed_from) REFERENCES collections(CName)
-    ON DELETE CASCADE
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TRIGGER IF EXISTS add_art;
@@ -242,5 +242,3 @@ DELETE FROM art_object WHERE id_no = old.id_no;
 END IF;
 END;//
 DELIMITER ;
-
-
