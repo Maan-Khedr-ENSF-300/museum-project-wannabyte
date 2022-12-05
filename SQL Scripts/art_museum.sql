@@ -352,10 +352,16 @@ GRANT Select ON ART_MUSEUM.* TO read_access@localhost;
 DROP USER IF EXISTS adm@localhost;
 DROP USER IF EXISTS mid@localhost;
 DROP USER IF EXISTS guest@localhost;
+
 CREATE USER adm@localhost IDENTIFIED WITH mysql_native_password BY 'password';
 
 CREATE USER guest@localhost;
-GRANT db_admin@localhost TO mk@localhost;
+
+CREATE USER mid@localhost;
+
+GRANT db_admin@localhost TO adm@localhost;
+GRANT mid_access@localhost TO mid@localhost;
 GRANT read_access@localhost TO guest@localhost;
-SET DEFAULT ROLE ALL TO mk@localhost;
+SET DEFAULT ROLE ALL TO adm@localhost;
+SET DEFAULT ROLE ALL TO mid@localhost;
 SET DEFAULT ROLE ALL TO guest@localhost;
