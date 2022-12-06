@@ -72,3 +72,36 @@ JOIN collections ON borrowed.Borrowed_from = collections.CName;
 DELETE FROM sculpture 
 WHERE ID_no = '001';
 
+
+-- Show all primary keys from each table 
+SELECT
+	t.table_name,
+    s.index_name AS pk_name,
+    s.seq_in_index AS column_id,
+    s.column_name
+FROM information_schema.tables AS t
+INNER JOIN information_schema.statistics AS s
+        ON s.table_schema = t.table_schema
+        AND s.table_name = t.table_name
+        AND s.index_name = 'primary'
+WHERE t.table_schema = 'art_museum'
+    AND t.table_type = 'BASE TABLE'
+ORDER BY t.table_name,
+    column_id;
+
+
+-- Show all triggers from each table
+SELECT event_object_table AS table_name,
+       trigger_name,
+       action_timing,
+       event_manipulation AS trigger_event,
+		action_statement AS 'definition'
+FROM information_schema.triggers 
+WHERE trigger_schema NOT IN ('sys','mysql')
+ORDER BY table_name;
+
+
+-- Show all foreign keys and referenced column + table
+select table_name, column_name, constraint_name, referenced_column_name, referenced_table_name
+   from information_schema.key_column_usage
+   WHERE referenced_table_schema = 'art_museum';
