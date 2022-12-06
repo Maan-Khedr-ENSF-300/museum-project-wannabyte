@@ -102,7 +102,7 @@ CREATE TABLE exhibition(
 DROP TABLE IF EXISTS exhibit;
 CREATE TABLE exhibit(
     ID_no               INTEGER NOT NULL,
-    EName               VARCHAR(100),
+    EName               VARCHAR(100) NOT NULL,
     PRIMARY KEY (ID_no, EName),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (EName) REFERENCES exhibition(EName) ON DELETE CASCADE ON UPDATE CASCADE
