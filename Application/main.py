@@ -152,8 +152,7 @@ if __name__ == "__main__":
         cnx = mysql.connector.connect(
         user = username,
         password = passcode,
-        autocommit = True,
-        auth_plugin='mysql_native_password'
+        autocommit = True
         )
         if (cnx.is_connected()):
             print("Connection Successful")
