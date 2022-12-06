@@ -40,7 +40,6 @@ FROM borrowed
 JOIN collections ON borrowed.Borrowed_from = collections.CName;
 
 
-
 -- Deletion Operation
 DELETE FROM sculpture 
 WHERE ID_no = '001';
