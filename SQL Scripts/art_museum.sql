@@ -243,6 +243,18 @@ END IF;
 END;//
 DELIMITER ;
 
+DROP TRIGGER IF EXISTS update_painting;
+DELIMITER //
+CREATE TRIGGER update_painting
+BEFORE UPDATE ON painting
+FOR EACH ROW
+BEGIN
+IF (OLD.id_no <> NEW.id_no)
+THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'To change ID_no of painting, make the change in the art_object table.';
+END IF;
+END;//
+DELIMITER ;
+
 INSERT INTO artist
 VALUES 
 ('Bennedeto', 'da Rovezzano', '1474', '1552', 'Italy', 'Early Modern Period', 'Renaissance', 'Bennedeto was an Italian Architect and Sculptor who worked mainly in Florence.'),
@@ -342,3 +354,26 @@ VALUES
 ('010', 'Romanticism in Sculpture'),
 ('011', 'Tuileries Gardens'),
 ('012', 'Cour Puget');
+
+DROP ROLE IF EXISTS db_admin@localhost, mid_access@localhost, read_access@localhost;
+CREATE ROLE db_admin@localhost, mid_access@localhost, read_access@localhost;
+GRANT ALL PRIVILEGES ON ART_MUSEUM.* TO db_admin@localhost;
+GRANT SELECT, INSERT, DELETE, UPDATE ON ART_MUSEUM.* TO mid_access@localhost;
+GRANT Select ON ART_MUSEUM.* TO read_access@localhost;
+
+DROP USER IF EXISTS adm@localhost;
+DROP USER IF EXISTS mid@localhost;
+DROP USER IF EXISTS guest@localhost;
+
+CREATE USER adm@localhost IDENTIFIED WITH mysql_native_password BY 'password';
+
+CREATE USER guest@localhost;
+
+CREATE USER mid@localhost;
+
+GRANT db_admin@localhost TO adm@localhost;
+GRANT mid_access@localhost TO mid@localhost;
+GRANT read_access@localhost TO guest@localhost;
+SET DEFAULT ROLE ALL TO adm@localhost;
+SET DEFAULT ROLE ALL TO mid@localhost;
+SET DEFAULT ROLE ALL TO guest@localhost;

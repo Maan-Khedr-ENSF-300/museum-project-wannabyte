@@ -31,4 +31,18 @@ WHERE a.Fname = o.AFname
 AND o.ID_no = p.ID_no
 AND p.Paint_type = 'Oil';
 
+-- Update operation
+UPDATE art_object
+SET Country_of_origin = 'Canada'
+WHERE ID_no = 010;
+
+SELECT Country_of_origin
+FROM art_object
+WHERE ID_no = 010;
+
+-- Update showing custom trigger called
+UPDATE painting SET ID_no = '100'
+WHERE ID_no = '003';
+
+SELECT * FROM painting;
 
