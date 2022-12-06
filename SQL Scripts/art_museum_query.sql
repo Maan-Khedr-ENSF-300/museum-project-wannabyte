@@ -32,14 +32,3 @@ AND o.ID_no = p.ID_no
 AND p.Paint_type = 'Oil';
 
 
--- Joined Table Query
-SELECT
-    borrowed.ID_no AS ID_no,
-    collections.CType AS Collection_type
-FROM borrowed
-JOIN collections ON borrowed.Borrowed_from = collections.CName;
-
-
--- Deletion Operation
-DELETE FROM sculpture 
-WHERE ID_no = '001';
