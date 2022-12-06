@@ -2,7 +2,7 @@ import mysql.connector
 from tabulate import tabulate
 
 def guest_view(cur):
-    print('Welcome to the guest browser\nWhat would you like to view?')
+    print('Welcome to the guest browser')
     while(True):
         print('What would you like to view?')
         print('1-Art Pieces')
@@ -152,7 +152,8 @@ if __name__ == "__main__":
         cnx = mysql.connector.connect(
         user = username,
         password = passcode,
-        autocommit = True
+        autocommit = True,
+        auth_plugin='mysql_native_password'
         )
         if (cnx.is_connected()):
             print("Connection Successful")
