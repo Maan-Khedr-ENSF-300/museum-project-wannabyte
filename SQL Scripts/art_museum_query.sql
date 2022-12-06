@@ -87,7 +87,7 @@ WHERE trigger_schema NOT IN ('sys','mysql')
 ORDER BY table_name;
 
 
--- Show all constraints from each table
-SELECT table_name, constraint_name, constraint_type
-FROM information_schema.table_constraints
-WHERE constraint_schema = 'art_museum';
+-- Show all foreign keys and referenced column + table
+select table_name, column_name, constraint_name, referenced_column_name, referenced_table_name
+   from information_schema.key_column_usage
+   WHERE referenced_table_schema = 'art_museum';
