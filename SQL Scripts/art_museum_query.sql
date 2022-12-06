@@ -76,18 +76,13 @@ WHERE ID_no = '001';
 -- Show all primary keys from each table 
 SELECT
 	t.table_name,
-    s.index_name AS pk_name,
-    s.seq_in_index AS column_id,
-    s.column_name
+    s.column_name AS PK_name
 FROM information_schema.tables AS t
 INNER JOIN information_schema.statistics AS s
         ON s.table_schema = t.table_schema
         AND s.table_name = t.table_name
-        AND s.index_name = 'primary'
 WHERE t.table_schema = 'art_museum'
-    AND t.table_type = 'BASE TABLE'
-ORDER BY t.table_name,
-    column_id;
+ORDER BY t.table_name;
 
 
 -- Show all triggers from each table
