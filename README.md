@@ -18,6 +18,7 @@
 - You must have the pip module tabulate installed
 
 ## Additional Features/Bonus marks attempted
-- Added fully custom triggers for delete and updating tables
-- Added access control using SQL commands
+- Did querys for point 1 bonus mark.
+- Added fully custom triggers for delete and updating tables.
+- Added access control using SQL commands.
 - Added all 3 access levels in the program.
