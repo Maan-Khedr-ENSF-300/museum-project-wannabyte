@@ -1,5 +1,5 @@
 USE ART_MUSEUM;
---1: Schema information
+-- 1: Schema information
 
 -- Show all primary keys from each table 
 SELECT
