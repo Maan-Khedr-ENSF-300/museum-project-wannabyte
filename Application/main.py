@@ -81,6 +81,52 @@ def display_data(cur):
     print(tabulate(result, headers=cur.column_names, tablefmt='psql'))
 
 def data_entry():
+    print('Would you like add new data or modify existing data?')
+    print('1 - Add Data')
+    print('2 - Modify exisiting data')
+    print('3 - Quit')
+    choice = input('Please enter your decision: ')
+    while choice not in ['1', '2', '3']:
+        choice = input('Please select a valid choice: ')
+    if choice == '1':
+        print('Available tables to add data are:\n')
+        cur.execute("SELECT table_name FROM information_schema.table WHERE table_schema = 'art_museum'")
+        options = []
+        for table in [tables[0] for tables in cur.fetchall()]:
+            options.append(table)
+        print(*options, sep=', ')
+        tbl = input('Which table would you like to add data to: ')
+        try: 
+            cur.execute(f'SELECT * FROM {tbl}')
+        except mysql.connector.Error:
+            print('Error, name invalid')
+            return
+        values = []
+        for i in range(len(cur.description)):
+            descript = cur.description[i]
+            print(f'Please enter data to add to column {descript[0]}: ')
+            if descript[6] == 0:
+                print('Note: Attribute may not be NULL')
+            else:
+                print('Note: If left empty, attribute will default to NULL')
+            values.append(input())
+        unpack = ", ".join(["'"+e+"'" for e in values])
+        try:
+            cur.execute(f'INSERT INTO {tbl} VALUES ({unpack})')
+            cnx.commit()
+            cur.execute(f'SELECT * FROM {tbl}')
+            result = cur.fetchall()
+            print(f'\n\nTabe {tbl} after data added: ')
+            print(tabulate(result, headers=cur.column_names, tablefmt='psql'))
+        except mysql.connector.Error:
+            print(Error)
+
+    #elif choice == 2:
+    
+    elif choice == 3:
+        print('Thank you for using our database!')
+        exit()
+        
     return
 
 def admin_view(cur):
