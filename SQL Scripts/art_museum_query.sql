@@ -39,3 +39,9 @@ WHERE ID_no = 010;
 SELECT Country_of_origin
 FROM art_object
 WHERE ID_no = 010;
+
+-- Update showing custom trigger called
+UPDATE painting SET ID_no = '100'
+WHERE ID_no = '003';
+
+SELECT * FROM painting;
