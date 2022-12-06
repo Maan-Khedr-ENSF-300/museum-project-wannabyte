@@ -20,3 +20,4 @@
 ## Additional Features/Bonus marks attempted
 - Added fully custom triggers for delete and updating tables
 - Added access control using SQL commands
+- Added all 3 access levels in the program.
