@@ -92,7 +92,7 @@ CREATE TABLE permanent_collection(
 
 DROP TABLE IF EXISTS exhibition;
 CREATE TABLE exhibition(
-    EName               VARCHAR(100),
+    EName               VARCHAR(100) NOT NULL,
     Startdate           VARCHAR(30),
     Enddate             VARCHAR(30),
     PRIMARY KEY (EName)
