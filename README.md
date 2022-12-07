@@ -39,7 +39,7 @@
     - SQL Queries
     - Data initialization
     - SQL review and editing
-    - Testing 
+    - Testing of sql database
 
 - William Fraser (30158991):
     - Review and editing for EER and relational model
