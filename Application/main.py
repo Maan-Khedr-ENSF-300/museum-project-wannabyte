@@ -123,6 +123,7 @@ def data_entry(cur):
                 print(err)
 
         elif choice == '2':
+            print('Note: All inputs are case sensitive.')
             print('\nAvailable tables to modify: ')
             cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
             options = []
@@ -130,6 +131,8 @@ def data_entry(cur):
                 options.append(table)
             print(*options, sep=', ')
             tbl = input('Which table would you like to modify: ')
+            while(tbl not in options):
+                tbl = input('\nInvalid entry. Table does not exist.\nWhich table would you like to modify: ')
             try:
                 cur.execute(f'SELECT * FROM {tbl}')
                 print('Table in current state:')
@@ -145,14 +148,18 @@ def data_entry(cur):
             print(*options, sep=', ')
             print('\nWhich attribute would you like to modify:\nNOTE: may only modify one at a time.')
             attrib = input()
+            while(attrib not in options):
+                attrib = input('\nInvalid entry. Attribute does not exist.\nWhich attribute would you like to modify: ')
             try:
                 cur.execute(f'SELECT {attrib} FROM {tbl}')
             except mysql.connector.Error as e:
                 print(e)
                 return
-            condition_attrib = input('Which attribute do you want to use as a condition to modify: ')
-            condition = input(f'What should {condition_attrib} equal: ')
-            new_values = input('Please enter the new value: ')
+            condition_attrib = input(f'Please select a conditional attribute from the {tbl} table: ')
+            while(condition_attrib not in options):
+                condition_attrib = input(f'\nInvalid entry. Conditional attribute does not exist.\nPlease select a conditional attribute from the {tbl} table: ')
+            condition = input(f'Please select a value from the {condition_attrib} column associated with the modification of {attrib} (Note: If the value chosen is not from the column, nothing will be modified): ')
+            new_values = input(f'Please enter the new value for {attrib}: ')
             try:
                 cur.execute(f"UPDATE {tbl} SET {attrib} = '{new_values}' WHERE {condition_attrib} = '{condition}'")
                 cur.execute(f'SELECT * FROM {tbl}')
