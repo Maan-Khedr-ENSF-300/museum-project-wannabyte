@@ -26,8 +26,12 @@
 
 ## Group members and who did what
 
-- Brandon McGee ():
-    - 
+- Brandon McGee (30125635):
+    - Drawing of EER Diagram
+    - Parts of both table creation and value insertion
+    - Parts of writing query code
+    - Data insertion, data modification, formatting, small bug fixes in main Python Application
+    - Testing of python application and query code
 
 - Eadan Lay ():
     - 
