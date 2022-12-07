@@ -34,7 +34,7 @@ def guest_view(cur):
                 display_data(cur)
             elif choice == '4':
                 cur.execute('''SELECT  A.title, A.descrip as Description, A.year_created, A.Epoch,
-                        A.Country_of_origin, A.AFname as Artist_first_name, A.Lname as Artist_las_name,
+                        A.Country_of_origin, A.AFname as Artist_first_name, A.ALname as Artist_last_name,
                         P.Otype as Object_type, P.Style FROM art_object AS A JOIN other AS P ON A.ID_no = P.ID_no''')
                 display_data(cur)
             else:
