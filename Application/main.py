@@ -175,10 +175,12 @@ def data_entry(cur):
                 print("Something went wrong: {}".format(err))
                 return
             print(f'The attributes in {tbl} are :')
+            options = []
             for i in range(len(cur.description)):
                 desc = cur.description[i]
-                print(desc[0])
-            attrib = input('Which attribute would you like to use as a condition to delete: ')
+                options.append(desc[0])
+            print(*options, sep=', ')
+            attrib = input('\nWhich attribute would you like to use as a condition to delete: ')
             print('What would you like to use as your condition for deletion?')
             condition = input(f'Deleting rows when {attrib} = ')
             try:
