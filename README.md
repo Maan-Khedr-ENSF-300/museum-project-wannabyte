@@ -17,9 +17,27 @@
 - Data entry view will use username: 'data_entry' and password: 'password'
 - You must have the pip module tabulate installed.
 - Some tables display very wide, so if you're running through windows command prompt I reccommend disabling wrap text on resize and increasing the screen size buffer width to stop text from going to next line if it exceeds the screen.
-- 
+
 ## Additional Features/Bonus marks attempted
 - Did querys for point 1 bonus mark.
 - Added fully custom triggers for delete and updating tables for bonus marks.
 - Added access control using SQL commands for bonus marks.
 - Added all 3 access levels in the program for bonus mark.
+
+## Group members and who did what
+
+- Brandon McGee ():
+    - 
+
+- Eadan Lay ():
+    - 
+
+- William Fraser (30158991):
+    - Review and editing for EER and relational model
+    - Parts of both table creation and value insertion
+    - triggers
+    - access control
+    - Guest view, admin view, parts of main
+    - some minimal testing
+
+

@@ -163,7 +163,7 @@ def data_entry(cur):
             condition_attrib = input(f'Please select a conditional attribute from the {tbl} table: ')
             while(condition_attrib not in options):
                 condition_attrib = input(f'\nInvalid entry. Conditional attribute does not exist.\nPlease select a conditional attribute from the {tbl} table: ')
-            condition = input(f'Please select a value from the {condition_attrib} column associated with the modification of {attrib} (Note: If the value chosen is not from the column, nothing will be modified): ')
+            condition = input(f'Please select a value from the {condition_attrib} column associated with the modification of {attrib}\n(Note: If the value chosen is not from the column, nothing will be modified):\n')
             new_values = input(f'Please enter the new value for {attrib}: ')
             try:
                 cur.execute(f"UPDATE {tbl} SET {attrib} = '{new_values}' WHERE {condition_attrib} = '{condition}'")
