@@ -90,3 +90,5 @@ UPDATE painting SET ID_no = '100'
 WHERE ID_no = '003';
 
 SELECT * FROM painting;
+
+   

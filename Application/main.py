@@ -34,7 +34,7 @@ def guest_view(cur):
                 display_data(cur)
             elif choice == '4':
                 cur.execute('''SELECT  A.title, A.descrip as Description, A.year_created, A.Epoch,
-                        A.Country_of_origin, A.AFname as Artist_first_name, A.Lname as Artist_las_name,
+                        A.Country_of_origin, A.AFname as Artist_first_name, A.ALname as Artist_last_name,
                         P.Otype as Object_type, P.Style FROM art_object AS A JOIN other AS P ON A.ID_no = P.ID_no''')
                 display_data(cur)
             else:
@@ -85,9 +85,10 @@ def data_entry(cur):
         print('Would you like add new data or modify existing data?')
         print('1 - Add Data')
         print('2 - Modify exisiting data')
-        print('3 - Quit')
+        print('3 - Delete data')
+        print('4 - Quit')
         choice = input('Please enter your decision: ')
-        while choice not in ['1', '2', '3']:
+        while choice not in ['1', '2', '3', '4']:
             choice = input('Please select a valid choice: ')
         if choice == '1':
             print('Available tables to add data are:\n')
@@ -120,7 +121,7 @@ def data_entry(cur):
             except mysql.connector.Error as err:
                 print(err)
 
-        elif choice == 2:
+        elif choice == '2':
             print('Available tables to modify: ')
             cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
             options = []
@@ -130,32 +131,68 @@ def data_entry(cur):
             tbl = input('Which table would you like to modify: ')
             try:
                 cur.execute(f'SELECT * FROM {tbl}')
+                print('Table in current state:')
+                display_data(cur)
             except mysql.connector.Error:
                 print('Error, name invalid')
                 return
-            key = input('Which key would you like to modify: ')
+            print(f'The attributes in {tbl} are :')
+            options = []
+            for i in range(len(cur.description)):
+                desc = cur.description[i]
+                options.append(desc[0])
+            print(*options, sep=', ')
+            print('\nWhich attribute would you like to modify:\nNOTE: may only modify one at a time.')
+            attrib = input()
             try:
-                cur.execute(f'SELECT {key} FROM {tbl}')
-            except mysql.connector.Error:
-                print('Error, name invalid')
+                cur.execute(f'SELECT {attrib} FROM {tbl}')
+            except mysql.connector.Error as e:
+                print(e)
                 return
-            value = input('Which value would you like to modify: ')
+            condition_attrib = input('Which attribute do you want to use as a condition to modify: ')
+            condition = input(f'What should {condition_attrib} equal: ')
+            new_values = input('Please enter the new value: ')
             try:
-                cur.execute(f'SELECT {key} FROM {tbl} WHERE {key} = {value}')
-            except mysql.connector.Error:
-                print('Error, name invalid')
-                return
-            new_value = input('Please enter the new value: ')
-            try:
-                cur.execute(f'UPDATE {tbl} SET {key} = {new_value} WHERE {key} = {value}')
-                cur.commit()
+                cur.execute(f"UPDATE {tbl} SET {attrib} = '{new_values}' WHERE {condition_attrib} = '{condition}'")
                 cur.execute(f'SELECT * FROM {tbl}')
                 print('Modified table')
                 display_data(cur)
             except mysql.connector.Error as err:
                 print(err)
-        
-        elif choice == 3:
+        elif choice == '3':
+            print('Available tables are:\n')
+            cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
+            options = []
+            for table in [tables[0] for tables in cur.fetchall()]:
+                options.append(table)
+            print(*options, sep=', ')
+            tbl = input('\nPlease enter the name of the table you want to delete from:')
+            try:
+                cur.execute(f'SELECT * FROM {tbl}')
+                print('Table in current state:')
+                display_data(cur)
+            except mysql.connector.Error as err:
+                print("Something went wrong: {}".format(err))
+                return
+            print(f'The attributes in {tbl} are :')
+            options = []
+            for i in range(len(cur.description)):
+                desc = cur.description[i]
+                options.append(desc[0])
+            print(*options, sep=', ')
+            attrib = input('\nWhich attribute would you like to use as a condition to delete: ')
+            print('What would you like to use as your condition for deletion?')
+            condition = input(f'Deleting rows when {attrib} = ')
+            try:
+                cur.execute(f"DELETE FROM {tbl} WHERE {attrib}= '{condition}'")
+                cur.execute(f'SELECT * FROM {tbl}')
+                print(f'\n\nTable {tbl} after your deletion: \n')
+                display_data(cur)
+            except mysql.connector.Error as err:
+                print("Something went wrong: {}".format(err))
+                return
+
+        elif choice == '4':
             print('Thank you for using our database!')
             exit()
         
@@ -179,7 +216,9 @@ def admin_view(cur):
                     break
         elif choice == '2':
             while True:
-                filepath = input('Please enter the directory and file name of the script you want to run:')    
+                print('Please enter the directory and file name of the script you want to run: ')
+                print('NOTE: Please enter the directory and filename WITHOUT any quotation marks.')
+                filepath = input()    
                 fd = open(f'{filepath}', 'r')
                 sqlFile = fd.read()
                 fd.close()
@@ -217,8 +256,8 @@ if __name__ == "__main__":
         exit()
 
     if selection in ['1','2']:
-        username= input("user name:")
-        passcode= input("password:")
+        username= input("user name: ")
+        passcode= input("password: ")
 
     else:
         username="guest"

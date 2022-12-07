@@ -15,10 +15,11 @@
 - Guest view will automatically login
 - Admin view will use username: 'adm' and password: 'password'
 - Data entry view will use username: 'data_entry' and password: 'password'
-- You must have the pip module tabulate installed
-
+- You must have the pip module tabulate installed.
+- Some tables display very wide, so if you're running through windows command prompt I reccommend disabling wrap text on resize and increasing the screen size buffer width to stop text from going to next line if it exceeds the screen.
+- 
 ## Additional Features/Bonus marks attempted
 - Did querys for point 1 bonus mark.
-- Added fully custom triggers for delete and updating tables.
-- Added access control using SQL commands.
-- Added all 3 access levels in the program.
+- Added fully custom triggers for delete and updating tables for bonus marks.
+- Added access control using SQL commands for bonus marks.
+- Added all 3 access levels in the program for bonus mark.
