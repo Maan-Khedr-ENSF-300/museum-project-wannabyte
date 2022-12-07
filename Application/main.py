@@ -146,7 +146,9 @@ def admin_view(cur):
                     break
         elif choice == '2':
             while True:
-                filepath = input('Please enter the directory and file name of the script you want to run:')    
+                print('Please enter the directory and file name of the script you want to run: ')
+                print('NOTE: Please enter the directory and filename WITHOUT any quotation marks.')
+                filepath = input()    
                 fd = open(f'{filepath}', 'r')
                 sqlFile = fd.read()
                 fd.close()
