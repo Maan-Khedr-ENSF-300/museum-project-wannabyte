@@ -10,8 +10,9 @@ def guest_view(cur):
         print('3-Exhibitions')
         print('4-Quit')
         selection = input('Please enter your choice: ')
+        print('')
         while selection not in ['1', '2', '3', '4']:
-            selection = input('Invalid input.\nPlease enter a valid choice: ')
+            selection = input('\nInvalid input.\nPlease enter a valid choice: ')
         if selection == '4':
             print('Thank you for using our database!')
             break
@@ -63,7 +64,7 @@ def guest_view(cur):
                 continue
         
 def exhibit_info(cur):
-    print('Would you like to see what objects are in an exhibit?')          
+    print('\nWould you like to see what objects are in an exhibit?')          
     choice = input('Y for Yes, anything else for No: ')  
     if choice == 'Y' or choice == 'y':
         exhibit = input('Please enter the name of the exhibit you want to view: ')
@@ -82,7 +83,7 @@ def display_data(cur):
 
 def data_entry(cur):
     while(1):
-        print('Would you like add new data or modify existing data?')
+        print('\nWould you like add new data or modify existing data?')
         print('1 - Add Data')
         print('2 - Modify exisiting data')
         print('3 - Delete data')
@@ -91,7 +92,7 @@ def data_entry(cur):
         while choice not in ['1', '2', '3', '4']:
             choice = input('Please select a valid choice: ')
         if choice == '1':
-            print('Available tables to add data are:\n')
+            print('\nAvailable tables to add data are:\n')
             cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
             options = []
             for table in [tables[0] for tables in cur.fetchall()]:
@@ -116,13 +117,13 @@ def data_entry(cur):
             try:
                 cur.execute(f'INSERT INTO {tbl} VALUES ({unpack})')
                 cur.execute(f'SELECT * FROM {tbl}')
-                print('Table after data added:')
+                print('Table after data added:\n')
                 display_data(cur)
             except mysql.connector.Error as err:
                 print(err)
 
         elif choice == '2':
-            print('Available tables to modify: ')
+            print('\nAvailable tables to modify: ')
             cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
             options = []
             for table in [tables[0] for tables in cur.fetchall()]:
@@ -155,12 +156,13 @@ def data_entry(cur):
             try:
                 cur.execute(f"UPDATE {tbl} SET {attrib} = '{new_values}' WHERE {condition_attrib} = '{condition}'")
                 cur.execute(f'SELECT * FROM {tbl}')
-                print('Modified table')
+                print('Modified table\n')
                 display_data(cur)
+                print('')
             except mysql.connector.Error as err:
                 print(err)
         elif choice == '3':
-            print('Available tables are:\n')
+            print('\nAvailable tables are:\n')
             cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
             options = []
             for table in [tables[0] for tables in cur.fetchall()]:
@@ -169,16 +171,19 @@ def data_entry(cur):
             tbl = input('\nPlease enter the name of the table you want to delete from:')
             try:
                 cur.execute(f'SELECT * FROM {tbl}')
-                print('Table in current state:')
+                print('Table in current state:\n')
                 display_data(cur)
+                print('')
             except mysql.connector.Error as err:
                 print("Something went wrong: {}".format(err))
                 return
             print(f'The attributes in {tbl} are :')
+            options = []
             for i in range(len(cur.description)):
                 desc = cur.description[i]
-                print(desc[0])
-            attrib = input('Which attribute would you like to use as a condition to delete: ')
+                options.append(desc[0])
+            print(*options, sep=', ')
+            attrib = input('\nWhich attribute would you like to use as a condition to delete: ')
             print('What would you like to use as your condition for deletion?')
             condition = input(f'Deleting rows when {attrib} = ')
             try:
@@ -197,13 +202,13 @@ def data_entry(cur):
     return
 def admin_view(cur):
     while True:
-        print('Would you like to:\n1-Execute an SQL command\n2-Run an SQL script\n3-Quit')
+        print('\nWould you like to:\n1-Execute an SQL command\n2-Run an SQL script\n3-Quit')
         choice = input('Please enter your selection: ')
         while choice not in ['1','2','3']:
             choice = input('Invalid input. Please enter a valid choice: ')
         if choice == '1':
             while True:
-                query = input('Please enter the SQL command that you want to execute: ')
+                query = input('\nPlease enter the SQL command that you want to execute: ')
                 try:
                     cur.execute(f'{query}')
                     display_data(cur)
@@ -214,7 +219,7 @@ def admin_view(cur):
                     break
         elif choice == '2':
             while True:
-                print('Please enter the directory and file name of the script you want to run: ')
+                print('\nPlease enter the directory and file name of the script you want to run: ')
                 print('NOTE: Please enter the directory and filename WITHOUT any quotation marks.')
                 filepath = input()    
                 fd = open(f'{filepath}', 'r')
@@ -233,12 +238,12 @@ def admin_view(cur):
                 if cont not in ['Y', 'y']:
                     break
         elif choice == '3':
-            print('Thank you for using our database!')
+            print('\nThank you for using our database!')
             exit()
     
 if __name__ == "__main__":
     
-    print("Welcome to the Art Museum Database!")
+    print("\nWelcome to the Art Museum Database!")
     print("In order to proceed please select your role from the list below:")
     print("1-DB Admin")
     print("2-Data Entry")
@@ -286,4 +291,3 @@ if __name__ == "__main__":
         data_entry(cur)
     else:
         admin_view(cur)
-
