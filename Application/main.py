@@ -2,7 +2,7 @@ import mysql.connector
 from tabulate import tabulate
 
 def guest_view(cur):
-    print('Welcome to the guest browser')
+    print('\nWelcome to the guest browser')
     while(True):
         print('What would you like to view?')
         print('1-Art Pieces')
@@ -17,7 +17,7 @@ def guest_view(cur):
             print('Thank you for using our database!')
             break
         elif selection == '1':
-            choice = input('Would you like to see:\n1-Paintings\n2-Sculptures\n3-Statues\n4-Other')
+            choice = input('Would you like to see:\n1-Paintings\n2-Sculptures\n3-Statues\n4-Other\nPlease enter your choice: ')
             if choice == '1':
                 cur.execute('''SELECT A.title, A.descrip as Description, A.year_created, A.Epoch,
                         A.Country_of_origin, A.AFname as Artist_first_name, A.ALname as Artist_last_name,
