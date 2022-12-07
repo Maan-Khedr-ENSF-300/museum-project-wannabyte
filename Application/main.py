@@ -173,13 +173,15 @@ def data_entry(cur):
             except mysql.connector.Error as err:
                 print(err)
         elif choice == '3':
-            print('\nAvailable tables are:\n')
+            print('\nAvailable tables are:')
             cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
             options = []
             for table in [tables[0] for tables in cur.fetchall()]:
                 options.append(table)
             print(*options, sep=', ')
             tbl = input('\nPlease enter the name of the table you want to delete from:')
+            while(tbl not in options):
+                tbl = input('\nInvalid entry. Table does not exist.\nWhich table would you like to delete from: ')
             try:
                 cur.execute(f'SELECT * FROM {tbl}')
                 print('Table in current state:\n')
@@ -195,7 +197,9 @@ def data_entry(cur):
                 options.append(desc[0])
             print(*options, sep=', ')
             attrib = input('\nWhich attribute would you like to use as a condition to delete: ')
-            print('What would you like to use as your condition for deletion?')
+            while(attrib not in options):
+                attrib = input('\nInvalid entry. Attribute does not exist.\nWhich attribute would you like to use as a condition to delete: ')
+            print(f'Which value from {attrib} would you like to use as your condition for deletion?')
             condition = input(f'Deleting rows when {attrib} = ')
             try:
                 cur.execute(f"DELETE FROM {tbl} WHERE {attrib}= '{condition}'")
