@@ -80,7 +80,7 @@ def display_data(cur):
     result = cur.fetchall()
     print(tabulate(result, headers=cur.column_names, tablefmt='psql'))
 
-def data_entry():
+def data_entry(cur):
     print('Would you like add new data or modify existing data?')
     print('1 - Add Data')
     print('2 - Modify exisiting data')
@@ -90,7 +90,7 @@ def data_entry():
         choice = input('Please select a valid choice: ')
     if choice == '1':
         print('Available tables to add data are:\n')
-        cur.execute("SELECT table_name FROM information_schema.table WHERE table_schema = 'art_museum'")
+        cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
         options = []
         for table in [tables[0] for tables in cur.fetchall()]:
             options.append(table)
@@ -113,13 +113,11 @@ def data_entry():
         unpack = ", ".join(["'"+e+"'" for e in values])
         try:
             cur.execute(f'INSERT INTO {tbl} VALUES ({unpack})')
-            cnx.commit()
             cur.execute(f'SELECT * FROM {tbl}')
-            result = cur.fetchall()
-            print(f'\n\nTabe {tbl} after data added: ')
-            print(tabulate(result, headers=cur.column_names, tablefmt='psql'))
-        except mysql.connector.Error:
-            print(Error)
+            print('Table after data added:')
+            display_data(cur)
+        except mysql.connector.Error as err:
+            print(err)
 
     #elif choice == 2:
     
@@ -198,8 +196,7 @@ if __name__ == "__main__":
         cnx = mysql.connector.connect(
         user = username,
         password = passcode,
-        autocommit = True,
-        auth_plugin='mysql_native_password'
+        autocommit = True
         )
         if (cnx.is_connected()):
             print("Connection Successful")
@@ -209,7 +206,7 @@ if __name__ == "__main__":
         print('Exiting...')
         exit()   
 
-    cur = cnx.cursor()
+    cur = cnx.cursor(buffered=True)
     cur.execute("use art_museum")
 
 

@@ -81,7 +81,7 @@ CREATE TABLE statue(
 DROP TABLE IF EXISTS permanent_collection;
 CREATE TABLE permanent_collection(
     ID_no               INTEGER NOT NULL,
-    Date_acquired       DATE,
+    Date_acquired       VARCHAR(30),
     Current_status      ENUM('Active', 'Inactive'),
     Cost                REAL,
     PRIMARY KEY (ID_no),
@@ -92,9 +92,9 @@ CREATE TABLE permanent_collection(
 
 DROP TABLE IF EXISTS exhibition;
 CREATE TABLE exhibition(
-    EName               VARCHAR(100),
-    Startdate           DATE,
-    Enddate             DATE,
+    EName               VARCHAR(100) NOT NULL,
+    Startdate           VARCHAR(30),
+    Enddate             VARCHAR(30),
     PRIMARY KEY (EName)
 );
 
@@ -102,7 +102,7 @@ CREATE TABLE exhibition(
 DROP TABLE IF EXISTS exhibit;
 CREATE TABLE exhibit(
     ID_no               INTEGER NOT NULL,
-    EName               VARCHAR(100),
+    EName               VARCHAR(100) NOT NULL,
     PRIMARY KEY (ID_no, EName),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (EName) REFERENCES exhibition(EName) ON DELETE CASCADE ON UPDATE CASCADE
@@ -125,8 +125,8 @@ DROP TABLE IF EXISTS borrowed;
 CREATE TABLE borrowed(
     ID_no               INTEGER NOT NULL,
     Borrowed_from       VARCHAR(30),
-    Date_borrowed       DATE,
-    Date_returned       DATE,
+    Date_borrowed       VARCHAR(30),
+    Date_returned       VARCHAR(30),
     
     PRIMARY KEY (ID_no, Borrowed_from),
     FOREIGN KEY (ID_no) REFERENCES art_object(ID_no)
@@ -143,6 +143,54 @@ FOR EACH ROW
 BEGIN
 IF ((NEW.ALname IS NOT NULL) AND (NEW.AFname IS NOT NULL) AND (NEW.ALname NOT IN (SELECT Lname FROM artist)))
 THEN INSERT INTO artist(Fname, Lname) VALUES (NEW.AFname, NEW.ALname);
+END IF;
+END;//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS add_painting;
+DELIMITER //
+CREATE TRIGGER add_painting
+BEFORE INSERT ON painting
+FOR EACH ROW
+BEGIN
+IF NEW.ID_no NOT IN (SELECT id_no FROM art_object)
+THEN INSERT INTO art_object (id_no) VALUES (NEW.id_no);
+END IF;
+END;//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS add_sculpture;
+DELIMITER //
+CREATE TRIGGER add_sculpture
+BEFORE INSERT ON sculpture
+FOR EACH ROW
+BEGIN
+IF NEW.ID_no NOT IN (SELECT id_no FROM art_object)
+THEN INSERT INTO art_object (id_no) VALUES (NEW.id_no);
+END IF;
+END;//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS add_statue;
+DELIMITER //
+CREATE TRIGGER add_statue
+BEFORE INSERT ON statue
+FOR EACH ROW
+BEGIN
+IF NEW.ID_no NOT IN (SELECT id_no FROM art_object)
+THEN INSERT INTO art_object (id_no) VALUES (NEW.id_no);
+END IF;
+END;//
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS add_other;
+DELIMITER //
+CREATE TRIGGER add_other
+BEFORE INSERT ON other
+FOR EACH ROW
+BEGIN
+IF NEW.ID_no NOT IN (SELECT id_no FROM art_object)
+THEN INSERT INTO art_object (id_no) VALUES (NEW.id_no);
 END IF;
 END;//
 DELIMITER ;
@@ -362,18 +410,18 @@ GRANT SELECT, INSERT, DELETE, UPDATE ON ART_MUSEUM.* TO mid_access@localhost;
 GRANT Select ON ART_MUSEUM.* TO read_access@localhost;
 
 DROP USER IF EXISTS adm@localhost;
-DROP USER IF EXISTS mid@localhost;
+DROP USER IF EXISTS data_entry@localhost;
 DROP USER IF EXISTS guest@localhost;
 
 CREATE USER adm@localhost IDENTIFIED WITH mysql_native_password BY 'password';
 
 CREATE USER guest@localhost;
 
-CREATE USER mid@localhost;
+CREATE USER data_entry@localhost IDENTIFIED WITH mysql_native_password BY 'password';
 
 GRANT db_admin@localhost TO adm@localhost;
-GRANT mid_access@localhost TO mid@localhost;
+GRANT mid_access@localhost TO data_entry@localhost;
 GRANT read_access@localhost TO guest@localhost;
 SET DEFAULT ROLE ALL TO adm@localhost;
-SET DEFAULT ROLE ALL TO mid@localhost;
+SET DEFAULT ROLE ALL TO data_entry@localhost;
 SET DEFAULT ROLE ALL TO guest@localhost;
