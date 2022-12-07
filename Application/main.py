@@ -99,6 +99,8 @@ def data_entry(cur):
                 options.append(table)
             print(*options, sep=', ')
             tbl = input('Which table would you like to add data to: ')
+            while(tbl not in options):
+                tbl = input('\nInvalid entry. Table does not exist.\nWhich table would you like to modify: ')
             try: 
                 cur.execute(f'SELECT * FROM {tbl}')
             except mysql.connector.Error:
@@ -110,8 +112,10 @@ def data_entry(cur):
                 print(f'Please enter data to add to column {descript[0]}: ')
                 if descript[6] == 0:
                     print('Note: Attribute may not be NULL')
+                    
                 else:
                     print('Note: If left empty, attribute will default to NULL')
+                
                 values.append(input())
             unpack = ", ".join(["'"+e+"'" for e in values])
             try:
