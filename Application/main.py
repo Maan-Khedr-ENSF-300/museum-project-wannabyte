@@ -208,7 +208,9 @@ def admin_view(cur):
                 query = input('Please enter the SQL command that you want to execute: ')
                 try:
                     cur.execute(f'{query}')
-                    display_data(cur)
+                    querysplit = query.split()
+                    if querysplit[0] == 'SELECT':
+                        display_data(cur)
                 except mysql.connector.Error as e:
                     print(e)
                 cont = input('Would you like to execute another command?\nY for yes, anything else for no: ')
