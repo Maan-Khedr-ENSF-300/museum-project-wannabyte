@@ -87,9 +87,10 @@ def data_entry(cur):
         print('1 - Add Data')
         print('2 - Modify exisiting data')
         print('3 - Delete data')
-        print('4 - Quit')
+        print('4 - Display Data')
+        print('5 - Quit')
         choice = input('Please enter your decision: ')
-        while choice not in ['1', '2', '3', '4']:
+        while choice not in ['1', '2', '3', '4', '5']:
             choice = input('Please select a valid choice: ')
         if choice == '1':
             print('\nAvailable tables to add data are:\n')
@@ -196,6 +197,16 @@ def data_entry(cur):
                 return
 
         elif choice == '4':
+            print('Available tables are:\n')
+            cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
+            options = []
+            for table in [tables[0] for tables in cur.fetchall()]:
+                options.append(table)
+            print(*options, sep=', ')
+            tbl = input('\nPlease enter the name of the table you want to view: ')
+            cur.execute(f'SELECT * FROM {tbl}')
+            display_data(cur)
+        elif choice == '5':
             print('Thank you for using our database!')
             exit()
         
