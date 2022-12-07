@@ -131,21 +131,25 @@ def data_entry(cur):
             tbl = input('Which table would you like to modify: ')
             try:
                 cur.execute(f'SELECT * FROM {tbl}')
+                print('Table in current state:')
+                display_data(cur)
             except mysql.connector.Error:
                 print('Error, name invalid')
                 return
             print(f'The attributes in {tbl} are :')
+            options = []
             for i in range(len(cur.description)):
                 desc = cur.description[i]
-                print(desc[0])
-            print('Which attribute would you like to modify:\nNOTE: may only modify one at a time.')
+                options.append(desc[0])
+            print(*options, sep=', ')
+            print('\nWhich attribute would you like to modify:\nNOTE: may only modify one at a time.')
             attrib = input()
             try:
                 cur.execute(f'SELECT {attrib} FROM {tbl}')
             except mysql.connector.Error as e:
                 print(e)
                 return
-            condition_attrib = input('Which column do you want to use as a condition to modify: ')
+            condition_attrib = input('Which attribute do you want to use as a condition to modify: ')
             condition = input(f'What should {condition_attrib} equal: ')
             new_values = input('Please enter the new value: ')
             try:
@@ -165,6 +169,8 @@ def data_entry(cur):
             tbl = input('\nPlease enter the name of the table you want to delete from:')
             try:
                 cur.execute(f'SELECT * FROM {tbl}')
+                print('Table in current state:')
+                display_data(cur)
             except mysql.connector.Error as err:
                 print("Something went wrong: {}".format(err))
                 return
