@@ -81,52 +81,85 @@ def display_data(cur):
     print(tabulate(result, headers=cur.column_names, tablefmt='psql'))
 
 def data_entry(cur):
-    print('Would you like add new data or modify existing data?')
-    print('1 - Add Data')
-    print('2 - Modify exisiting data')
-    print('3 - Quit')
-    choice = input('Please enter your decision: ')
-    while choice not in ['1', '2', '3']:
-        choice = input('Please select a valid choice: ')
-    if choice == '1':
-        print('Available tables to add data are:\n')
-        cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
-        options = []
-        for table in [tables[0] for tables in cur.fetchall()]:
-            options.append(table)
-        print(*options, sep=', ')
-        tbl = input('Which table would you like to add data to: ')
-        try: 
-            cur.execute(f'SELECT * FROM {tbl}')
-        except mysql.connector.Error:
-            print('Error, name invalid')
-            return
-        values = []
-        for i in range(len(cur.description)):
-            descript = cur.description[i]
-            print(f'Please enter data to add to column {descript[0]}: ')
-            if descript[6] == 0:
-                print('Note: Attribute may not be NULL')
-            else:
-                print('Note: If left empty, attribute will default to NULL')
-            values.append(input())
-        unpack = ", ".join(["'"+e+"'" for e in values])
-        try:
-            cur.execute(f'INSERT INTO {tbl} VALUES ({unpack})')
-            cur.execute(f'SELECT * FROM {tbl}')
-            print('Table after data added:')
-            display_data(cur)
-        except mysql.connector.Error as err:
-            print(err)
+    while(1):
+        print('Would you like add new data or modify existing data?')
+        print('1 - Add Data')
+        print('2 - Modify exisiting data')
+        print('3 - Quit')
+        choice = input('Please enter your decision: ')
+        while choice not in ['1', '2', '3']:
+            choice = input('Please select a valid choice: ')
+        if choice == '1':
+            print('Available tables to add data are:\n')
+            cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
+            options = []
+            for table in [tables[0] for tables in cur.fetchall()]:
+                options.append(table)
+            print(*options, sep=', ')
+            tbl = input('Which table would you like to add data to: ')
+            try: 
+                cur.execute(f'SELECT * FROM {tbl}')
+            except mysql.connector.Error:
+                print('Error, name invalid')
+                return
+            values = []
+            for i in range(len(cur.description)):
+                descript = cur.description[i]
+                print(f'Please enter data to add to column {descript[0]}: ')
+                if descript[6] == 0:
+                    print('Note: Attribute may not be NULL')
+                else:
+                    print('Note: If left empty, attribute will default to NULL')
+                values.append(input())
+            unpack = ", ".join(["'"+e+"'" for e in values])
+            try:
+                cur.execute(f'INSERT INTO {tbl} VALUES ({unpack})')
+                cur.execute(f'SELECT * FROM {tbl}')
+                print('Table after data added:')
+                display_data(cur)
+            except mysql.connector.Error as err:
+                print(err)
 
-    #elif choice == 2:
-    
-    elif choice == 3:
-        print('Thank you for using our database!')
-        exit()
+        elif choice == 2:
+            print('Available tables to modify: ')
+            cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'art_museum'")
+            options = []
+            for table in [tables[0] for tables in cur.fetchall()]:
+                options.append(table)
+            print(*options, sep=', ')
+            tbl = input('Which table would you like to modify: ')
+            try:
+                cur.execute(f'SELECT * FROM {tbl}')
+            except mysql.connector.Error:
+                print('Error, name invalid')
+                return
+            key = input('Which key would you like to modify: ')
+            try:
+                cur.execute(f'SELECT {key} FROM {tbl}')
+            except mysql.connector.Error:
+                print('Error, name invalid')
+                return
+            value = input('Which value would you like to modify: ')
+            try:
+                cur.execute(f'SELECT {key} FROM {tbl} WHERE {key} = {value}')
+            except mysql.connector.Error:
+                print('Error, name invalid')
+                return
+            new_value = input('Please enter the new value: ')
+            try:
+                cur.execute(f'UPDATE {tbl} SET {key} = {new_value} WHERE {key} = {value}')
+                cur.commit()
+                cur.execute(f'SELECT * FROM {tbl}')
+                print('Modified table')
+                display_data(cur)
+            except mysql.connector.Error as err:
+                print(err)
+        
+        elif choice == 3:
+            print('Thank you for using our database!')
+            exit()
         
     return
-
 def admin_view(cur):
     while True:
         print('Would you like to:\n1-Execute an SQL command\n2-Run an SQL script\n3-Quit')
