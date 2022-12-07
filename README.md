@@ -33,8 +33,13 @@
     - Data insertion, data modification, formatting, small bug fixes in main Python Application
     - Testing of python application and query code
 
-- Eadan Lay ():
-    - 
+- Eadan Lay (30120015):
+    - Relation Schema
+    - Database table creation
+    - SQL Queries
+    - Data initialization
+    - SQL review and editing
+    - Testing 
 
 - William Fraser (30158991):
     - Review and editing for EER and relational model
