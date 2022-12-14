@@ -10,3 +10,43 @@
 - sql scripts folder: contains all sql scripts required (database creation and initialization, sql script with query tasks in the handout, etc...)
 - database design folder: EERD and relational schema
 - optional data folder: has data files that you can sue to load data to your application if you use this optional implementation requirement
+
+## Notes on how to use program
+- Guest view will automatically login
+- Admin view will use username: 'adm' and password: 'password'
+- Data entry view will use username: 'data_entry' and password: 'password'
+- You must have the pip module tabulate installed.
+- Some tables display very wide, so if you're running through windows command prompt I reccommend disabling wrap text on resize and increasing the screen size buffer width to stop text from going to next line if it exceeds the screen.
+
+## Additional Features/Bonus marks attempted
+- Did querys for point 1 bonus mark.
+- Added fully custom triggers for delete and updating tables for bonus marks.
+- Added access control using SQL commands for bonus marks.
+- Added all 3 access levels in the program for bonus mark.
+
+## Group members and who did what
+
+- Brandon McGee (30125635):
+    - Drawing of EER Diagram
+    - Parts of both table creation and value insertion
+    - Parts of writing query code
+    - Data insertion, data modification, formatting, small bug fixes in main Python Application
+    - Testing of python application and query code
+
+- Eadan Lay (30120015):
+    - Relation Schema
+    - Database table creation
+    - SQL Queries
+    - Data initialization
+    - SQL review and editing
+    - Testing of sql database
+
+- William Fraser (30158991):
+    - Review and editing for EER and relational model
+    - Parts of both table creation and value insertion
+    - triggers
+    - access control
+    - Guest view, admin view, parts of main
+    - some minimal testing
+
+
